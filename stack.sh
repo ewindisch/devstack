@@ -777,6 +777,9 @@ if [[ "$ENABLED_SERVICES" =~ "g-reg" ]]; then
         GLANCE_REGISTRY_PASTE_INI=$GLANCE_DIR/etc/glance-registry-paste.ini
         cp $FILES/glance-registry-paste.ini $GLANCE_REGISTRY_PASTE_INI
         sudo sed -e "s,%SERVICE_TOKEN%,$SERVICE_TOKEN,g" -i $GLANCE_REGISTRY_PASTE_INI
+        # During the transition for Glance to the split config files
+        # we cat them together to handle both pre- and post-merge
+        cat $GLANCE_REGISTRY_PASTE_INI >>$GLANCE_REGISTRY_CONF
     fi
 
     GLANCE_API_CONF=$GLANCE_DIR/etc/glance-api.conf
@@ -789,6 +792,9 @@ if [[ "$ENABLED_SERVICES" =~ "g-reg" ]]; then
         GLANCE_API_PASTE_INI=$GLANCE_DIR/etc/glance-api-paste.ini
         cp $FILES/glance-api-paste.ini $GLANCE_API_PASTE_INI
         sudo sed -e "s,%SERVICE_TOKEN%,$SERVICE_TOKEN,g" -i $GLANCE_API_PASTE_INI
+        # During the transition for Glance to the split config files
+        # we cat them together to handle both pre- and post-merge
+        cat $GLANCE_API_PASTE_INI >>$GLANCE_API_CONF
     fi
 fi
 
