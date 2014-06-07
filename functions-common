@@ -1044,11 +1044,20 @@ function run_process {
     echo $!
 }
 
+function docker_run_process {
+    local service=$1
+    local command="$2"
+
+    docker run -v /opt/stack:/opt/stack -v /devstack:/devstack --priviledged \
+           ewindisch/dockenstack /bin/bash -c "$command"
+}
+
 # Helper to launch a service in a named screen
 # screen_it service "command-line"
 function screen_it {
     SCREEN_NAME=${SCREEN_NAME:-stack}
     SERVICE_DIR=${SERVICE_DIR:-${DEST}/status}
+    USE_DOCKER=$(trueorfalse True $USE_DOCKER)
     USE_SCREEN=$(trueorfalse True $USE_SCREEN)
 
     if is_service_enabled $1; then

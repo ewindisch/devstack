@@ -66,6 +66,9 @@ IDENTITY_API_VERSION=2.0
 # be disabled for automated testing by setting this value to False.
 USE_SCREEN=True
 
+# Whether to run processes inside Docker containers.
+USE_DOCKER=False
+
 # allow local overrides of env variables, including repo config
 if [[ -f $RC_DIR/localrc ]]; then
     # Old-style user-supplied config
